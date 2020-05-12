@@ -21,14 +21,14 @@ public class PublishSubscribeService {
         this.messageDao = messageDao;
     }
 
-    public List<String> publish(String t, JSONObject data) throws Exception {
+    public List<JSONObject> publish(String t, JSONObject data) throws Exception {
         return messageDao.publish(t,data);
     }
 
     public HttpStatus subscribe(String t, JSONObject data) throws IOException, JSONException {
         return messageDao.subscribe(t,data);
     }
-    public String getEvents(String data) throws ParseException {
+    public String getEvents(String data) throws JSONException {
         return messageDao.getEvents(data);
     }
 

@@ -22,8 +22,8 @@ import java.util.UUID;
 public class MessageDao {
     private static HashMap<String, List<Subscriber>> topics = new HashMap<>();
 
-    public List<String> publish(String t, JSONObject data) throws Exception {
-        List<String> response = new ArrayList<>();
+    public List<JSONObject> publish(String t, JSONObject data) throws Exception {
+        List<JSONObject> response = new ArrayList<>();
         if (topics.get(t) != null) {
             List<Subscriber> subscribers = topics.get(t);
             for (Subscriber s : subscribers) {
@@ -32,7 +32,7 @@ public class MessageDao {
             }
             return response;
         }else {
-            throw new Exception("Topic Name does not exist");
+            throw new Exception("Topic Name does not exist.First Subscribe to a topic.");
         }
     }
 
@@ -49,7 +49,7 @@ public class MessageDao {
         return HttpStatus.OK;
     }
 
-    public String getEvents(String data) throws ParseException {
+    public String getEvents(String data) throws JSONException {
         return data;
     }
 }

@@ -24,9 +24,9 @@ public class PubSubController {
 
     @RequestMapping("/publish/{topic}")
     @PostMapping(path = "{topic}")
-    public List<String> publish(@NotNull @PathVariable("topic")String t, @NotNull @Valid @RequestBody String json) throws Exception {
+    public String publish(@NotNull @PathVariable("topic")String t, @NotNull @Valid @RequestBody String json) throws Exception {
         JSONObject data=new JSONObject(json);
-        return service.publish(t,data);
+        return service.publish(t,data).toString();
     }
 
     @RequestMapping("/subscribe/{topic}")
@@ -38,7 +38,7 @@ public class PubSubController {
 
     @RequestMapping("/event")
     @PostMapping
-    public String getEvents(@NotNull @Valid @RequestBody String json) throws ParseException {
+    public String getEvents(@NotNull @Valid @RequestBody String json) throws JSONException {
         return service.getEvents(json);
     }
 }

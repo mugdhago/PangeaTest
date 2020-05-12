@@ -1,5 +1,7 @@
 package com.pangea.test.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -13,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Map;
 import java.util.UUID;
 
 public class Subscriber {
@@ -26,7 +29,7 @@ public class Subscriber {
         this.url = url;
     }
 
-    public String receivedMessage(String topic, JSONObject message) throws IOException, JSONException {
+    public JSONObject receivedMessage(String topic, JSONObject message) throws IOException, JSONException {
         if (url != null) {
               CloseableHttpClient httpClient = HttpClients.createDefault();
                 HttpPost request = new HttpPost(url);
@@ -36,9 +39,9 @@ public class Subscriber {
                 request.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
                 CloseableHttpResponse response = httpClient.execute(request);
-                String result = EntityUtils.toString(response.getEntity());
+                String retSrc = EntityUtils.toString(response.getEntity());
                 // parsing JSON
-                 //JSONObject result = new JSONObject(retSrc);
+                 JSONObject result = new JSONObject(retSrc);
                  return result;
 
         }
